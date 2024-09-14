@@ -1,0 +1,7 @@
+cdsapi
+numpy
+xarray
+matplotlib
+cartopy
+fastapi
+pydantic
