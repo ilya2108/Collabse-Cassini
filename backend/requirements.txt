@@ -5,3 +5,7 @@ matplotlib
 cartopy
 fastapi
 pydantic
+fastapi
+uvicorn
+netcdf4
+scipy
