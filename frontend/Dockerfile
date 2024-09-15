@@ -18,4 +18,4 @@ ENV STREAMLIT_SERVER_PORT=8501
 ENV STREAMLIT_SERVER_HEADLESS=true
 
 # Run app.py when the container launches
-CMD ["streamlit", "run", "main.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "01_ESG_Dashboard.py", "--server.port=8501", "--server.address=0.0.0.0"]
