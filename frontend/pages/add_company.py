@@ -61,9 +61,36 @@ with st.form(key='company_form'):
     submit_button = st.form_submit_button(label='Submit')
 
 if submit_button:
-    st.success(f"""
-               Search the ESG data on '{company_name}':
-               ({address_data["map_data"].values[0]}),
-               {address_data['elevation']}
-               
-               """)
+    company_data = {
+        'Company Name': company_name,
+        'Location': location,
+        'Company Size': company_size,
+        'Industry': industry,
+    }
+    df = address_data["map_data"]
+    values = df[['lat', 'lon']].values[0]
+    lat, lon = values
+    api_data = {
+        "latitude": lat,
+        "longitude": lon,
+        "delta": 0.1
+    }
+    
+    api_endpoints = {
+        'esg_results': 'http://35.228.76.200:8000/esg_results',
+        'interpretation': 'http://35.228.76.200:8000/interpretation',
+        'comparison': 'http://35.228.76.200:8000/comparison'
+    }
+    api_responses = {}
+
+    for key, url in api_endpoints.items():
+            try:
+                response = requests.post(url, json=api_data)
+                response.raise_for_status()
+                api_responses[key] = response.json()
+                st.success(f"Successfully retrieved {key.replace('_', ' ').title()}.")
+                st.json(api_responses[key])
+            except requests.exceptions.HTTPError as http_err:
+                st.error(f"HTTP error occurred for {key}: {http_err}")
+            except Exception as err:
+                st.error(f"An error occurred for {key}: {err}")
