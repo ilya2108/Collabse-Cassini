@@ -70,7 +70,7 @@ if user_input := st.chat_input("You:"):
 # Add a button to clear chat history
 if st.button("Clear Chat History"):
     st.session_state.messages = []
-    st.experimental_rerun()
+    st.rerun()
 
 # Display a brief explanation of ESG and CSR
 st.sidebar.title("About ESG and CSR")
